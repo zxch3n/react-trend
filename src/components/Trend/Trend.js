@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -28,6 +29,7 @@ const propTypes = {
   height: PropTypes.number,
   padding: PropTypes.number,
   radius: PropTypes.number,
+  maxDada: PropTypes.number,
   gradient: PropTypes.arrayOf(PropTypes.string),
 };
 
@@ -113,6 +115,7 @@ class Trend extends Component {
       padding,
       radius,
       gradient,
+      maxData
     } = this.props;
 
     // We need at least 2 points to draw a graph.
@@ -131,6 +134,10 @@ class Trend extends Component {
       typeof point === 'number' ? point : point.value
     ));
 
+    if (maxData !== undefined) {
+      plainValues.push(maxData);
+    }
+
     // Our viewbox needs to be in absolute units, so we'll default to 300x75
     // Our SVG can be a %, though; this is what makes it scalable.
     // By defaulting to percentages, the SVG will grow to fill its parent
@@ -148,6 +155,10 @@ class Trend extends Component {
       minY: viewBoxHeight - padding,
       maxY: padding,
     });
+
+    if (maxData !== undefined) {
+      normalizedValues.splice(normalizedValues.length - 1);
+    }
 
     const path = smooth
       ? buildSmoothPath(normalizedValues, { radius })

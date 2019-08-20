@@ -70,6 +70,7 @@ class App extends Component {
           radius={radius}
           strokeWidth={strokeWidth}
           strokeLinecap={strokeLinecap}
+          maxData={30}
         />
 
         <TabGroup>
